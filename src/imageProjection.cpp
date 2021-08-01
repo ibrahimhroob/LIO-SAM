@@ -200,6 +200,13 @@ public:
         // convert cloud
         currentCloudMsg = std::move(cloudQueue.front());
         cloudQueue.pop_front();
+
+        //For some reason the point cloud data from the velodyne plugin does not follow stander point cloud data structure!!   
+        if(currentCloudMsg.height > 1){
+            currentCloudMsg.width = currentCloudMsg.height;
+            currentCloudMsg.height = 1;
+        }
+
         if (sensor == SensorType::VELODYNE)
         {
             pcl::moveFromROSMsg(currentCloudMsg, *laserCloudIn);
