@@ -61,14 +61,11 @@ This is the original ROS1 implementation of LIO-SAM. For a ROS2 implementation s
   sudo apt-get install -y ros-kinetic-robot-localization
   sudo apt-get install -y ros-kinetic-robot-state-publisher
   ```
-- [gtsam](https://github.com/borglab/gtsam/releases) (Georgia Tech Smoothing and Mapping library)
+- [gtsam](https://gtsam.org/get_started/) (Georgia Tech Smoothing and Mapping library)
   ```
-  wget -O ~/Downloads/gtsam.zip https://github.com/borglab/gtsam/archive/4.0.2.zip
-  cd ~/Downloads/ && unzip gtsam.zip -d ~/Downloads/
-  cd ~/Downloads/gtsam-4.0.2/
-  mkdir build && cd build
-  cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF ..
-  sudo make install -j8
+  sudo add-apt-repository ppa:borglab/gtsam-release-4.0
+  sudo apt update
+  sudo apt install libgtsam-dev libgtsam-unstable-dev
   ```
 
 ## Install
@@ -108,7 +105,7 @@ The user needs to prepare the point cloud data in the correct format for cloud d
 
 ## Sample datasets
 
-  * Download some sample datasets to test the functionality of the package. The datasets below is configured to run using the default settings:
+  * Download some sample datasets to test the functionality of the package. The datasets below are configured to run using the default settings:
     - **Walking dataset:** [[Google Drive](https://drive.google.com/drive/folders/1gJHwfdHCRdjP7vuT556pv8atqrCJPbUq?usp=sharing)]
     - **Park dataset:** [[Google Drive](https://drive.google.com/drive/folders/1gJHwfdHCRdjP7vuT556pv8atqrCJPbUq?usp=sharing)]
     - **Garden dataset:** [[Google Drive](https://drive.google.com/drive/folders/1gJHwfdHCRdjP7vuT556pv8atqrCJPbUq?usp=sharing)]
@@ -166,7 +163,7 @@ rosbag play your-bag.bag -r 3
     <img src="./config/doc/kitti-demo.gif" alt="drawing" width="300"/>
 </p>
 
-  - **Ouster lidar:** To make LIO-SAM work with Ouster lidar, some preparations needs to be done on hardware and software level.
+  - **Ouster lidar:** To make LIO-SAM work with Ouster lidar, some preparations need to be done on hardware and software level.
     - Hardware:
       - Use an external IMU. LIO-SAM does not work with the internal 6-axis IMU of Ouster lidar. You need to attach a 9-axis IMU to the lidar and perform data-gathering.
       - Configure the driver. Change "timestamp_mode" in your Ouster launch file to "TIME_FROM_PTP_1588" so you can have ROS format timestamp for the point clouds.
